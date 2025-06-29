@@ -75,11 +75,11 @@ Purpose: Containerizes the application to ensure consistent development, testing
 Purpose: Automates testing and deployment processes to ensure code changes are smoothly and reliably integrated into the production environment.
 
 
-🗄️ Database Design
+## 🗄️ Database Design
 The backend uses PostgreSQL with Django’s ORM. Below is a high-level entity/relationship sketch—enough to guide model creation and migrations.
 
 
-| Entity                                | Core Fields (✂ abbreviated)                                                                                        | Key Relationships & Cardinality                                                                                                                                                                                                                      |
+| Entity                                | Core Fields                                                                                                         | Key Relationships & Cardinality                                                                                                                                                                                                                      |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **User**                              | `id` PK, `email` (unique), `password_hash`, `full_name`, `is_host`, `date_joined`                                  | • **1 : N** → `Property` (as *host*)<br>• **1 : N** → `Booking` (as *guest*)<br>• **1 : N** → `Review` (as *author*)<br>• **M : M** ↔ `Property` via `Favorite` (user wish-lists)<br>• **M : M** ↔ `User` via `Message` (guest↔host chat)            |
 | **Property**                          | `id` PK, `host_id` FK → User, `title`, `location`, `description`, `price_per_night`, `max_guests`                  | • **N : 1** ← `User` (host)<br>• **1 : N** → `PropertyImage`<br>• **M : M** ↔ `Amenity` via `PropertyAmenity`<br>• **1 : N** → `Availability` (calendar)<br>• **1 : N** → `Booking`<br>• **1 : N** → `Review`<br>• **M : M** ↔ `User` via `Favorite` |
