@@ -175,3 +175,29 @@ Vector queries are isolated behind rate limits and content filters to stop promp
 
 With these layered controls the platform maintains confidentiality, integrity, and availability—even under high traffic  conditions.
 
+
+## 🚀 CI/CD Pipeline
+Continuous Integration (CI) automatically builds and tests every pull-request, catching bugs the moment code is pushed.
+Continuous Delivery/Deployment (CD) packages the validated build (Docker image) and ships it to staging or production with zero-downtime rollouts.
+
+For an API-first product like the Airbnb Clone, an automated pipeline ensures:
+
+Code Quality & Security – unit tests, linting, type-checks, and dependency-vulnerability scans run on every commit, preventing broken or unsafe code from reaching users.
+
+Consistent Environments – Docker images are built the same way locally, in CI, and in production, eliminating “works on my machine” surprises.
+
+Fast Feedback Loops – developers get pass/fail results within minutes, enabling rapid iteration and safer merges to main.
+
+One-Click (or auto) Deploys – after CI passes, the pipeline tags the image, pushes to a registry, runs migrations, and updates the container orchestration layer (e.g., Docker Compose, Kubernetes, or Render) with zero downtime.
+
+🛠️ Typical Toolchain
+
+| Stage          | Tool(s)                                               | What Happens                                                                                                                         |
+| -------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| **CI**         | **GitHub Actions** (workflows triggered on PR)        | - Install Python deps<br>- Run pytest + coverage<br>- flake8 / black lint<br>- safety or pip-audit security scan                     |
+| **Build**      | **Docker**                                            | - Bake production image (`Dockerfile`, multi-stage build)<br>- Tag with commit SHA & push to **GitHub Container Registry (GHCR)**    |
+| **CD**         | **GitHub Actions** (or **ArgoCD** / **Flux** for K8s) | - Pull latest image on staging<br>- Run Django migrations<br>- Smoke tests / health check<br>- Promote to production on green signal |
+| **Monitoring** | **Grafana + Prometheus** / **Sentry**                 | - Auto-alerts on failed deploy, high error rate, or performance regressions                                                          |
+
+
+A well-configured CI/CD pipeline turns every merge into a reproducible, test-verified, and deployable artifact—keeping the platform reliable while enabling the team to ship new features quickly.
