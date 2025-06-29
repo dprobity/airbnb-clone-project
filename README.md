@@ -2,10 +2,10 @@
 
 ## Overview of the AirBnB Clone
 
-##🚀 Objective
+## 🚀 Objective
 The backend for the Airbnb Clone project is designed to provide a robust and scalable foundation for managing user interactions, property listings, bookings, and payments. This backend will support various functionalities required to mimic the core features of Airbnb, ensuring a smooth experience for users and hosts.
 
-##🏆  Project Goals
+## 🏆  Project Goals
 User Management: Implement a secure system for user registration, authentication, and profile management.
 Property Management: Develop features for property listing creation, updates, and retrieval.
 Booking System: Create a booking mechanism for users to reserve properties and manage booking details.
@@ -14,7 +14,7 @@ Review System: Allow users to leave reviews and ratings for properties.
 Data Optimization: Ensure efficient data retrieval and storage through database optimizations.
 
 
-##⚙️ Technology Stack
+## ⚙️ Technology Stack
 Django: A high-level Python web framework used for building the RESTful API.
 Django REST Framework: Provides tools for creating and managing RESTful APIs.
 PostgreSQL: A powerful relational database used for data storage.
@@ -25,7 +25,7 @@ Docker: Containerization tool for consistent development and deployment environm
 CI/CD Pipelines: Automated pipelines for testing and deploying code changes.
 
 
-##🧑‍💻 Team Roles
+## 🧑‍💻 Team Roles
 The successful delivery of the Airbnb Clone backend depends on a well-defined software development team structure. Below are the core roles involved in the project and their responsibilities:
 
 🔧 Backend Developer
@@ -59,7 +59,7 @@ Responsibility: (If applicable to future frontend integration) Designs user jour
 Responsibility: Oversees timelines, milestones, and coordination between roles. Facilitates Agile practices like sprint planning, reviews, and ensures timely delivery of project phases.
 
 
-##🛠️ Features Overview
+## 🛠️ Features Overview
 1. API Documentation
 OpenAPI Standard: The backend APIs are documented using the OpenAPI standard to ensure clarity and ease of integration.
 Django REST Framework: Provides a comprehensive RESTful API for handling CRUD operations on user and property data.
