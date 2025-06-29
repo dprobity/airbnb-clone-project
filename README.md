@@ -143,3 +143,35 @@ Caching – Redis caches frequent reads (e.g., homepage listings) and backs Cele
 
 Semantic Searching – A vector database + fine-tuned LLM embeddings power natural-language search (e.g., “loft with skyline view near Central Park”) that ranks listings beyond simple text filters.
 
+
+## 🔒 API Security
+Robust security is non-negotiable for a marketplace handling personal identities, bookings, and real-money transactions. The Airbnb Clone backend adopts a defense-in-depth approach that layers multiple safeguards:
+
+| Security Measure                                 | What We Implement                                                                                                                                                                     | Why It Matters                                                                                                            |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| **Authentication**                               | • JSON Web Tokens (JWT) or rotated session cookies over HTTPS only.<br>• Multi-factor support for hosts/admins.<br>• Secure password storage (argon2/bcrypt + pepper).                | Verifies **who** is calling the API and prevents account takeovers that could expose PII or hijack listings.              |
+| **Authorization (RBAC)**                         | • Role-based access control: guest, host, admin.<br>• Object-level checks (only a host can edit *its own* property; only booking owner can cancel).                                   | Ensures users can **only** perform actions on resources they own, protecting revenue flows and data integrity.            |
+| **Transport Encryption**                         | • HTTPS/TLS 1.2+ everywhere—API, CDN, and internal service calls.<br>• HSTS preloading and modern cipher suites.                                                                      | Protects credentials, JWTs, and payment tokens from interception on public networks.                                      |
+| **Rate Limiting & Throttling**                   | • DRF throttles per-IP and per-user.<br>• Redis-backed leaky bucket to absorb bursts.<br>• Custom “expensive query” caps on GraphQL.                                                  | Prevents brute-force login attempts, denial-of-service spikes, and runaway costs (e.g., unbounded vector-search queries). |
+| **Input Validation & ORM Protection**            | • Automatic Django ORM parameterization.<br>• Serializer validation and GraphQL depth/complexity limits.<br>• Centralized payload sanitization.                                       | Blocks SQL-i, NoSQL-i, GraphQL injection, and stored-XSS vectors that can corrupt data or deface listings.                |
+| **Secure Payment Flow**                          | • Client obtains gateway token → server verifies webhook → marks booking paid.<br>• Webhook signatures and idempotency keys.<br>• No card data stored on our servers (PCI-DSS SAQ A). | Shields financial data, prevents double-charges, and provides an auditable trail for refunds and disputes.                |
+| **Secrets & Config Management**                  | • Docker secrets / environment vars.<br>• Key rotation policies (JWT signing, webhook secrets).                                                                                       | Keeps critical keys out of source control and allows rapid revocation if leaked.                                          |
+| **Audit Logging & Monitoring**                   | • Structured logs (JSON) shipped to ELK/Grafana.<br>• Suspicious-activity alerts (e.g., 5 failed logins in 1 min).                                                                    | Enables rapid incident response and demonstrates compliance for hosts and regulators.                                     |
+| **Content Security Policies (CSP) for Admin UI** | • Strict CSP headers and subresource integrity on dashboards.                                                                                                                         | Minimizes XSS attack surface for superusers managing payouts and user bans.                                               |
+
+
+✨ Security in Context
+User Data
+Emails, phone numbers, and IDs must remain private—breaches erode trust and violate GDPR/CCPA.
+
+Booking Integrity
+If an attacker can manipulate availability or cancel bookings, it directly translates to lost revenue for hosts and platform reputation damage.
+
+Payments
+A single flaw in payment handling exposes chargeback fraud or PCI (payment card industry needs to comply with data security standards) liabilities. Webhooks, idempotency, and tokenization isolate risk.
+
+Semantic Search / LLM Endpoints
+Vector queries are isolated behind rate limits and content filters to stop prompt-injection or resource-exhaustion exploits.
+
+With these layered controls the platform maintains confidentiality, integrity, and availability—even under high traffic  conditions.
+
