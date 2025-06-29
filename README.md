@@ -48,14 +48,31 @@ Responsibility: (If applicable to future frontend integration) Designs user jour
 Responsibility: Oversees timelines, milestones, and coordination between roles. Facilitates Agile practices like sprint planning, reviews, and ensures timely delivery of project phases.
 
 ## ⚙️ Technology Stack
-Django: A high-level Python web framework used for building the RESTful API.
-Django REST Framework: Provides tools for creating and managing RESTful APIs.
-PostgreSQL: A powerful relational database used for data storage.
-GraphQL: Allows for flexible and efficient querying of data.
-Celery: For handling asynchronous tasks such as sending notifications or processing payments.
-Redis: Used for caching and session management.
-Docker: Containerization tool for consistent development and deployment environments.
-CI/CD Pipelines: Automated pipelines for testing and deploying code changes.
+This project utilizes a modern, scalable backend technology stack to support the core functionality of the Airbnb Clone:
+
+🐍 Django
+Purpose: A high-level Python web framework used to build and organize the backend logic. Django handles routing, authentication, ORM (Object-Relational Mapping), and integrates seamlessly with other components like DRF and Celery.
+
+🛠 Django REST Framework (DRF)
+Purpose: Provides powerful tools and classes for building RESTful APIs in Django. Used to expose endpoints for user registration, property listings, bookings, reviews, and payments.
+
+🔍 GraphQL
+Purpose: Enables flexible and efficient querying of the backend data. Instead of calling multiple endpoints, GraphQL allows clients to request exactly the data they need in a single query.
+
+🐘 PostgreSQL
+Purpose: A robust, scalable relational database used for storing structured data such as users, properties, bookings, payments, and reviews.
+
+🛰 Celery
+Purpose: A task queue for handling asynchronous background jobs like sending notifications, booking confirmation emails, or payment processing tasks.
+
+⚡ Redis
+Purpose: Used as a message broker for Celery and for caching frequently accessed data to improve performance and reduce database load.
+
+📦 Docker
+Purpose: Containerizes the application to ensure consistent development, testing, and deployment environments. It simplifies setting up and running services locally or in production.
+
+🔁 CI/CD Pipelines
+Purpose: Automates testing and deployment processes to ensure code changes are smoothly and reliably integrated into the production environment.
 
 
 ## 🛠️ Features Overview
