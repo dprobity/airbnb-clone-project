@@ -75,6 +75,20 @@ Purpose: Containerizes the application to ensure consistent development, testing
 Purpose: Automates testing and deployment processes to ensure code changes are smoothly and reliably integrated into the production environment.
 
 
+🗄️ Database Design
+The backend uses PostgreSQL with Django’s ORM. Below is a high-level entity/relationship sketch—enough to guide model creation and migrations.
+(Field names are illustrative; feel free to rename or extend.)
+
+| Entity       | Key Fields                                                                                                                                                 | Notes & Relationships                                                                                                                                                                  |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **User**     | `id` (PK, UUID)  <br>`email` (unique)  <br>`password_hash`  <br>`full_name`  <br>`date_joined`                                                             | • **1 : N →** *Property* – a host can list many properties. <br>• **1 : N →** *Booking* – a guest can place many bookings. <br>• **1 : N →** *Review* – a user can leave many reviews. |
+| **Property** | `id` (PK)  <br>`host_id` (FK → User)  <br>`title`  <br>`location` (city / coords)  <br>`price_per_night`                                                   | • **N : 1 ←** *User* (host). <br>• **1 : N →** *Booking* – each booking references one property. <br>• **1 : N →** *Review* – many reviews for one property.                           |
+| **Booking**  | `id` (PK)  <br>`guest_id` (FK → User)  <br>`property_id` (FK → Property)  <br>`check_in` / `check_out`  <br>`status` (`pending`, `confirmed`, `cancelled`) | • **N : 1 ←** *User* (guest). <br>• **N : 1 ←** *Property*. <br>• **1 : 1 →** *Payment* (optional until paid).                                                                         |
+| **Payment**  | `id` (PK)  <br>`booking_id` (FK → Booking, unique)  <br>`amount`  <br>`provider` (`stripe`, `paypal`, etc.)  <br>`paid_at`                                 | • **1 : 1 ←** *Booking*. <br>• Holds transaction metadata; can be expanded with webhook status, receipt URL, etc.                                                                      |
+| **Review**   | `id` (PK)  <br>`author_id` (FK → User)  <br>`property_id` (FK → Property)  <br>`rating` (1-5)  <br>`comment` / `created_at`                                | • **N : 1 ←** *User* (author). <br>• **N : 1 ←** *Property*. <br>• A booking ID can be added for “verified stay” logic.                                                                |
+
+
+
 ## 🛠️ Features Overview
 1. API Documentation
 OpenAPI Standard: The backend APIs are documented using the OpenAPI standard to ensure clarity and ease of integration.
