@@ -97,27 +97,49 @@ The backend uses PostgreSQL with Django’s ORM. Below is a high-level entity/re
 
 
 ## 🛠️ Features Overview
-1. API Documentation
-OpenAPI Standard: The backend APIs are documented using the OpenAPI standard to ensure clarity and ease of integration.
-Django REST Framework: Provides a comprehensive RESTful API for handling CRUD operations on user and property data.
-GraphQL: Offers a flexible and efficient query mechanism for interacting with the backend.
-2. User Authentication
+API Documentation
+
+OpenAPI Standard – Every REST endpoint is described with machine-readable schemas (Swagger / Redoc), so clients and testers know exactly what to send and expect.
+
+Django REST Framework (DRF) – Exposes conventional CRUD endpoints for Users, Properties, Bookings, etc., making it simple to integrate with mobile apps, third-party services, or cURL/Postman scripts.
+
+GraphQL – Adds a single flexible /graphql/ endpoint that lets front-ends fetch nested or aggregated data (e.g., booking + property + host) in one round-trip instead of chaining multiple REST calls.
+
+User Authentication
+
 Endpoints: /users/, /users/{user_id}/
-Features: Register new users, authenticate, and manage user profiles.
-3. Property Management
+
+Features: Secure registration, JWT/session login, password reset, and profile editing. Role flags (is_host, is_admin) drive permission checks across the API.
+
+Property Management
+
 Endpoints: /properties/, /properties/{property_id}/
-Features: Create, update, retrieve, and delete property listings.
-4. Booking System
+
+Features: Hosts can create, update, retrieve, and delete listings; attach photos, prices, and amenities; and manage availability calendars.
+
+Booking System
+
 Endpoints: /bookings/, /bookings/{booking_id}/
-Features: Make, update, and manage bookings, including check-in and check-out details.
-5. Payment Processing
+
+Features: Guests reserve dates, modify or cancel stays, and the system enforces no-overlap rules, guest-count limits, and status transitions (pending → confirmed → completed).
+
+Payment Processing
+
 Endpoints: /payments/
-Features: Handle payment transactions related to bookings.
-6. Review System
+
+Features: Integrates with Stripe/PayPal to collect fees, store transaction metadata, and automatically update booking status once the payment webhook confirms success.
+
+Review System
+
 Endpoints: /reviews/, /reviews/{review_id}/
-Features: Post and manage reviews for properties.
-7. Database Optimizations
-Indexing: Implement indexes for fast retrieval of frequently accessed data.
-Caching: Use caching strategies to reduce database load and improve performance.
-Semantic searching: I will integrate an LLM and leveraging on vector database to implement semantic searching
+
+Features: After checkout, guests can rate properties (1-5 stars) and leave comments. Reviews are tied to bookings for “verified stay” credibility and aggregated into host/property ratings.
+
+Database Optimizations
+
+Indexing – Composite indexes on hot columns (location, price, check_in/check_out) deliver millisecond-level search and availability queries.
+
+Caching – Redis caches frequent reads (e.g., homepage listings) and backs Celery job queues for fast background tasks.
+
+Semantic Searching – A vector database + fine-tuned LLM embeddings power natural-language search (e.g., “loft with skyline view near Central Park”) that ranks listings beyond simple text filters.
 
