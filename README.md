@@ -14,17 +14,6 @@ Review System: Allow users to leave reviews and ratings for properties.
 Data Optimization: Ensure efficient data retrieval and storage through database optimizations.
 
 
-## ⚙️ Technology Stack
-Django: A high-level Python web framework used for building the RESTful API.
-Django REST Framework: Provides tools for creating and managing RESTful APIs.
-PostgreSQL: A powerful relational database used for data storage.
-GraphQL: Allows for flexible and efficient querying of data.
-Celery: For handling asynchronous tasks such as sending notifications or processing payments.
-Redis: Used for caching and session management.
-Docker: Containerization tool for consistent development and deployment environments.
-CI/CD Pipelines: Automated pipelines for testing and deploying code changes.
-
-
 ## 🧑‍💻 Team Roles
 The successful delivery of the Airbnb Clone backend depends on a well-defined software development team structure. Below are the core roles involved in the project and their responsibilities:
 
@@ -57,6 +46,16 @@ Responsibility: (If applicable to future frontend integration) Designs user jour
 
 📋 Project Manager (PM)
 Responsibility: Oversees timelines, milestones, and coordination between roles. Facilitates Agile practices like sprint planning, reviews, and ensures timely delivery of project phases.
+
+## ⚙️ Technology Stack
+Django: A high-level Python web framework used for building the RESTful API.
+Django REST Framework: Provides tools for creating and managing RESTful APIs.
+PostgreSQL: A powerful relational database used for data storage.
+GraphQL: Allows for flexible and efficient querying of data.
+Celery: For handling asynchronous tasks such as sending notifications or processing payments.
+Redis: Used for caching and session management.
+Docker: Containerization tool for consistent development and deployment environments.
+CI/CD Pipelines: Automated pipelines for testing and deploying code changes.
 
 
 ## 🛠️ Features Overview
