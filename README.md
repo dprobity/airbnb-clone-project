@@ -96,7 +96,7 @@ The backend uses PostgreSQL with Django’s ORM. Below is a high-level entity/re
 
 
 
-## 🛠️ Features Breakdown
+## 🛠️ Feature Breakdown
 API Documentation
 
 OpenAPI Standard – Every REST endpoint is described with machine-readable schemas (Swagger / Redoc), so clients and testers know exactly what to send and expect.
