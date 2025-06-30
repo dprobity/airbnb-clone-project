@@ -1,7 +1,7 @@
-í¿  Airbnb Clone â€“ ERD Documentation
+ğŸ  Airbnb Clone â€“ ERD Documentation
 This document outlines the database schema for an Airbnb-like platform. The schema includes users, properties, bookings, payments, messages, and reviews.
 
-í³„ Table: users
+ğŸ“„ Table: users
 Column	Type	Description
 user_id	UUID (PK)	Unique user identifier
 first_name	VARCHAR	First name
@@ -11,7 +11,7 @@ password_hash	VARCHAR	Hashed password
 phone_number	VARCHAR	Phone number (optional)
 role	ENUM	User role: guest, host, admin
 created_at	TIMESTAMP	Time of account creation
-í¿  Table: properties
+ğŸ  Table: properties
 Column	Type	Description
 property_id	UUID (PK)	Unique property ID
 host_id	UUID (FK)	References users(user_id)
@@ -21,7 +21,7 @@ location	VARCHAR	Location string
 price_per_night	DECIMAL	Price per night
 created_at	TIMESTAMP	Property creation time
 updated_at	TIMESTAMP	Last update timestamp
-í³… Table: bookings
+ğŸ“… Table: bookings
 Column	Type	Description
 booking_id	UUID (PK)	Unique booking ID
 property_id	UUID (FK)	References properties(property_id)
@@ -31,14 +31,14 @@ end_date	DATE	Check-out date
 total_price	DECIMAL	Total booking cost
 status	ENUM	Booking status: pending, confirmed, cancelled, completed
 created_at	TIMESTAMP	Booking creation timestamp
-í²³ Table: payments
+ğŸ’³ Table: payments
 Column	Type	Description
 payment_id	UUID (PK)	Unique payment ID
 booking_id	UUID (FK)	References bookings(booking_id)
 amount	DECIMAL	Payment amount
 payment_date	TIMESTAMP	When payment was made
 payment_method	ENUM	Method used: card, paypal, bank_transfer
-í²¬ Table: messages
+ğŸ’¬ Table: messages
 Column	Type	Description
 message_id	UUID (PK)	Unique message ID
 sender_id	UUID (FK)	References users(user_id)
@@ -53,7 +53,7 @@ user_id	UUID (FK)	References users(user_id)
 rating	INTEGER	Integer rating (1-5)
 comment	TEXT	Written review
 created_at	TIMESTAMP	When review was submitted
-í´— Relationships Overview
+ğŸ”— Relationships Overview
 users â†’ properties (1:N) via host_id
 
 users â†’ bookings (1:N) via user_id
